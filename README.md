@@ -6,7 +6,7 @@
   </a>
    <img src="https://img.shields.io/badge/platform-Windows-0078d7.svg"/>
   <br>
-  Universal graphical hook for a D3D9-D3D12, OpenGL and Vulkan based games
+  Universal graphical and input hook for a D3D9-D3D12, OpenGL and Vulkan based games
 </p>
 
 # Features
