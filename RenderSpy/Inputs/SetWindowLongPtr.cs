@@ -13,14 +13,14 @@ namespace RenderSpy.Inputs
     public class SetWindowLongPtr : IHook
     {
 
-        private Globals.WindowProcDelegate _newCallback;
+        private Globals.WindowProcDelegate _newCallback = null;
         private IntPtr _oldCallback;
 
         public event Globals.WindowProcDelegate WindowProc;
 
         public bool BlockInput = false;
 
-        private IntPtr Handle;
+        public IntPtr Handle;
 
         public IntPtr WindowHandle   // property
         {
@@ -30,7 +30,7 @@ namespace RenderSpy.Inputs
 
         public void Install()
         {
-            if (_newCallback != null)
+            if (_newCallback == null)
             {
                 _newCallback = WindowProc_Detour;
                 _oldCallback = WinApi.SetWindowLongPtr(Handle, (int)WinApi.GWL.GWL_WNDPROC, Marshal.GetFunctionPointerForDelegate(_newCallback));
@@ -45,7 +45,7 @@ namespace RenderSpy.Inputs
         public virtual IntPtr WindowProc_Detour(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam)
         {
             WindowProc?.Invoke(hWnd, msg, wParam, lParam);
-
+          
             if (BlockInput == true) { return IntPtr.Zero; } else { return WinApi.CallWindowProc(_oldCallback, hWnd, (int)msg, wParam, lParam); }
         }
 

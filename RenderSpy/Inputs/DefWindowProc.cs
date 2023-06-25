@@ -32,7 +32,7 @@ namespace RenderSpy.Inputs
         {
 
             Engine = new HookEngine();
-            Hook_orig = Engine.CreateHook("user32.dll", "DefWindowProc", new Globals.WindowProcDelegate(WindowProc_Detour));
+            Hook_orig = Engine.CreateHook("user32.dll", "DefWindowProcW", new Globals.WindowProcDelegate(WindowProc_Detour));
             Engine.EnableHooks();
 
         }

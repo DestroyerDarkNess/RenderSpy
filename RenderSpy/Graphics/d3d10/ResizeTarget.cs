@@ -21,7 +21,9 @@ namespace RenderSpy.Graphics.d3d10
 
         public SharpDX.Direct3D10.Device GlobalDevice = null;
 
-        public event ResizeTargetDelegate ResizeTargetEvent;
+        public event ResizeTargetDelegate OnPreResizeTarget;
+
+        public event ResizeTargetDelegate OnPostResizeTarget;
 
         public void Install()
         {
@@ -43,9 +45,11 @@ namespace RenderSpy.Graphics.d3d10
 
         public virtual int ResizeTarget_Detour(IntPtr swapChainPtr, ref ModeDescription newTargetParameters)
         {
-            ResizeTargetEvent?.Invoke(swapChainPtr, ref newTargetParameters);
+            OnPreResizeTarget?.Invoke(swapChainPtr, ref newTargetParameters);
+            int Result = ResizeTarget_orig(swapChainPtr, ref newTargetParameters);
+            OnPostResizeTarget?.Invoke(swapChainPtr, ref newTargetParameters);
 
-            return ResizeTarget_orig(swapChainPtr, ref newTargetParameters);
+            return Result;
         }
 
         public void Uninstall()
