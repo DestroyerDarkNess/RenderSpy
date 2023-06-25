@@ -27,7 +27,7 @@ The objectives of the list that have: [❌] - It means I have no idea how to sol
 - [x] DefWindowProc
 - [x] GetWindowLongPtr
 - [x] SetWindowLongPtr 
-- [x] MouseCursorHook 
+- [x] SetCursorPos 
 
 ### Example
 
