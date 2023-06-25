@@ -10,7 +10,15 @@
 </p>
 
 # Features
-The objectives of the list that have: [❌] - It means I have no idea how to solve it.
+ *Note: The objectives of the list that have: [❌] - It means I have no idea how to solve it.*
+
+It includes all the libraries you need to draw, RenderSpy after compilation joins all the dependencies using ILMerge which means it appears to offer hooks, it also offers all the libraries you need to draw your overlay.
+
+- [x] OpenGL.Net 
+- [x] SharpDX and its Wrappers [SharpDX.Direct3D9 - SharpDX.Direct3D10 - SharpDX.Direct3D11 ... and more!!]
+- [x] MinHook.NET [For your custom hooks.]
+
+RenderSpy when incorporating these libraries has a weight of approximately 5mb, but if you use Costura.Fody in your assembly the weight is considerably reduced to approximately 1mb.
 
 ### Graphics
 
