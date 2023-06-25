@@ -1,0 +1,54 @@
+﻿using MinHook;
+using RenderSpy.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace RenderSpy.Inputs
+{
+    public class DefWindowProc : IHook
+    {
+       
+        IntPtr OrigAddr = IntPtr.Zero;
+        HookEngine Engine;
+        Globals.WindowProcDelegate Hook_orig;
+
+        public event Globals.WindowProcDelegate WindowProc;
+
+        public bool BlockInput = false;
+
+        private IntPtr Handle;
+
+        public IntPtr WindowHandle   // property
+        {
+            get { return Handle; }   // get Handle
+            set { Handle = value; }  // set Handle
+        }
+
+        public void Install()
+        {
+
+            Engine = new HookEngine();
+            Hook_orig = Engine.CreateHook("user32.dll", "DefWindowProc", new Globals.WindowProcDelegate(WindowProc_Detour));
+            Engine.EnableHooks();
+
+        }
+
+        public virtual IntPtr WindowProc_Detour(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam)
+        {
+            WindowProc?.Invoke(hWnd, msg, wParam, lParam);
+
+            if (BlockInput == true) { return IntPtr.Zero; } else { return Hook_orig(hWnd, msg, wParam, lParam); }
+        }
+
+        public void Uninstall()
+        {
+            Engine?.Dispose();
+        }
+
+
+    }
+}
