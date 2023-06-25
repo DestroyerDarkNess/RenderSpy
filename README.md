@@ -11,6 +11,7 @@
   You can find the Examples Repository <a href="https://github.com/DestroyerDarkNess/RenderSpy.Samples">[HERE]</a>
 </p>
 
+[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#table-of-contents)
 
 # Features
  *Note: The objectives of the list that have: [❌] - It means I have no idea how to solve it.*
@@ -22,6 +23,8 @@ It includes all the libraries you need to draw, RenderSpy after compilation join
 - [x] MinHook.NET [For your custom hooks.]
 
 RenderSpy when incorporating these libraries has a weight of approximately 5mb, but if you use Costura.Fody in your assembly the weight is considerably reduced to approximately 1mb.
+
+[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#table-of-contents)
 
 ### Graphics
 
@@ -38,7 +41,9 @@ RenderSpy when incorporating these libraries has a weight of approximately 5mb, 
 - [x] DefWindowProc
 - [x] GetWindowLongPtr
 - [x] SetWindowLongPtr 
-- [x] SetCursorPos 
+- [x] SetCursorPos
+      
+[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#table-of-contents)
 
 ### Example
 
@@ -92,6 +97,7 @@ RenderSpy when incorporating these libraries has a weight of approximately 5mb, 
                     };
                 }
 ```
+[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#table-of-contents)
 
 ### License
 ```
