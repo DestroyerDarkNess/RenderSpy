@@ -28,12 +28,15 @@ RenderSpy when incorporating these libraries has a weight of approximately 5mb, 
 
 ### Graphics
 
-- [x] DirectX9 
-- [x] DirectX10
-- [x] DirectX11 
-- [ ] DirectX12  
-- [x] OpenGL    
-- [ ] Vulkan. ❌ **[I don't know how to hook it]**
+| API | Support       |
+|----------|---------------|
+| DirectX9 | ✅ |
+| DirectX10 | ✅ |
+| DirectX11 | ✅ |
+| DirectX12 | ❌ Work in Progress |
+| OpenGL | ✅ |
+| Vulkan | ❌ I don't know how to hook it |
+
 
 ### Inputs
 
