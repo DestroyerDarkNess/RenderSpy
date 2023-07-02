@@ -51,54 +51,83 @@ RenderSpy when incorporating these libraries has a weight of approximately 5mb, 
 ### Example
 
 ```C
-   if (WinApi.GetModuleHandle("d3d9.dll") != IntPtr.Zero)
-                {
-                    Graphics.d3d9.EndScene NewEndScene = new Graphics.d3d9.EndScene();
-                    NewEndScene.Install();
+    RenderSpy.Graphics.GraphicsType GraphicsT = RenderSpy.Graphics.Detector.GetCurrentGraphicsType();
 
-                    NewEndScene.EndSceneEvent += (device) =>
-                    {
-                        Console.WriteLine("d3d9 EndScene Hooked! Device Address: " + device.ToString());
-                        return 0;
-                    };
-                }
-                else if (WinApi.GetModuleHandle("d3d10.dll") != IntPtr.Zero)
-                {
-                    Graphics.d3d10.Present NewPresent = new Graphics.d3d10.Present();
-                    NewPresent.Install();
+            RenderSpy.Interfaces.IHook CurrentHook = null;
 
-                    NewPresent.PresentEvent += (swapChainPtr, syncInterval, flags) =>
-                    {
-                        Console.WriteLine("d3d10 Present Hooked! swapChainPtr Address: " + swapChainPtr.ToString());
-                        return 0;
-                    };
-                }
-                else if (WinApi.GetModuleHandle("d3d11.dll") != IntPtr.Zero)
-                {
-                    Graphics.d3d11.Present NewPresent = new Graphics.d3d11.Present();
-                    NewPresent.Install();
+            switch (GraphicsT)
+            {
+                case RenderSpy.Graphics.GraphicsType.d3d9:
 
-                    NewPresent.PresentEvent += (swapChainPtr, syncInterval, flags) =>
-                    {
-                        Console.WriteLine("d3d11 Present Hooked! swapChainPtr Address: " + swapChainPtr.ToString());
-                        return 0;
-                    };
-                }
-                else if (WinApi.GetModuleHandle("d3d12.dll") != IntPtr.Zero)
-                {
-                    // No Implement!!
-                }
-                else if (WinApi.GetModuleHandle("opengl32.dll") != IntPtr.Zero)
-                {
-                    Graphics.opengl.wglSwapBuffers NewSwapBuffers = new Graphics.opengl.wglSwapBuffers();
-                    NewSwapBuffers.Install();
+                    Graphics.d3d9.Present PresentHook_9 = new Graphics.d3d9.Present();
+                    PresentHook_9.Install();
+                    CurrentHook = PresentHook_9;
 
-                    NewSwapBuffers.wglSwapBuffersEvent += (hdc) =>
+                    PresentHook_9.PresentEvent += (IntPtr device, IntPtr sourceRect, IntPtr destRect, IntPtr hDestWindowOverride, IntPtr dirtyRegion) =>
                     {
-                        Console.WriteLine("OpenGL wglSwapBuffers Hooked! SwapBuffers Address: " + hdc.ToString());
-                        return true;
+                        // You Custom Code.
+                        return PresentHook_9.Present_orig(device, sourceRect, destRect, hDestWindowOverride, dirtyRegion);
                     };
-                }
+
+                    break;
+                case RenderSpy.Graphics.GraphicsType.d3d10:
+
+                    Graphics.d3d11.Present PresentHook_10 = new Graphics.d3d11.Present();
+                    PresentHook_10.Install();
+                    CurrentHook = PresentHook_10;
+
+                    PresentHook_10.PresentEvent += (swapChainPtr, syncInterval, flags) =>
+                    {
+                        // You Custom Code.
+                        return PresentHook_10.Present_orig(swapChainPtr, syncInterval, flags);
+                    };
+
+                    break;
+                case RenderSpy.Graphics.GraphicsType.d3d11:
+
+                    Graphics.d3d11.Present PresentHook_11 = new Graphics.d3d11.Present();
+                    PresentHook_11.Install();
+                    CurrentHook = PresentHook_11;
+
+                    PresentHook_11.PresentEvent += (swapChainPtr, syncInterval, flags) =>
+                    {
+                        // You Custom Code.
+                        return PresentHook_11.Present_orig(swapChainPtr, syncInterval, flags);
+                    };
+
+                    break;
+                case RenderSpy.Graphics.GraphicsType.d3d12:
+
+                    break;
+                case RenderSpy.Graphics.GraphicsType.opengl:
+
+                    Graphics.opengl.wglSwapBuffers glSwapBuffersHook = new Graphics.opengl.wglSwapBuffers();
+                    glSwapBuffersHook.Install();
+                    CurrentHook = glSwapBuffersHook;
+
+                    glSwapBuffersHook.wglSwapBuffersEvent += (IntPtr hdc) =>
+                    {
+                        // You Custom Code.
+                        return glSwapBuffersHook.wglSwapBuffers_orig(hdc); ;
+                    };
+
+
+                    break;
+                case RenderSpy.Graphics.GraphicsType.vulkan:
+
+                    break;
+                default:
+
+                    break;
+            }
+
+      // ... you more code
+
+      // Terminate.... runtines.
+      // Destroy Hook
+      // CurrentHook.Uninstall();
+
+
 ```
 [![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#table-of-contents)
 
