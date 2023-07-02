@@ -17,10 +17,9 @@ namespace RenderSpy.Graphics.d3d11
 
         IntPtr OrigAddr = IntPtr.Zero;
         HookEngine Engine;
-        ResizeTargetDelegate ResizeTarget_orig;
+        public ResizeTargetDelegate ResizeTarget_orig;
 
-        public event ResizeTargetDelegate OnPreResizeTarget;
-        public event ResizeTargetDelegate OnPostResizeTarget;
+        public event ResizeTargetDelegate ResizeTarget_Event;
 
         public void Install()
         {
@@ -42,11 +41,12 @@ namespace RenderSpy.Graphics.d3d11
 
         public virtual int ResizeTarget_Detour(IntPtr swapChainPtr, ref ModeDescription newTargetParameters)
         {
-            OnPreResizeTarget?.Invoke(swapChainPtr, ref newTargetParameters);
-            int Result = ResizeTarget_orig(swapChainPtr, ref newTargetParameters);
-            OnPostResizeTarget?.Invoke(swapChainPtr, ref newTargetParameters);
-
-            return Result;
+            if (ResizeTarget_Event != null)
+            {
+                int result = ResizeTarget_Event.Invoke(swapChainPtr, ref newTargetParameters);
+                return result;
+            }
+            else { return ResizeTarget_orig(swapChainPtr, ref newTargetParameters); }
         }
 
         public void Uninstall()

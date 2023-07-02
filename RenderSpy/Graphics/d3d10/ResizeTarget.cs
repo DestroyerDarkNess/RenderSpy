@@ -17,13 +17,11 @@ namespace RenderSpy.Graphics.d3d10
 
         IntPtr OrigAddr = IntPtr.Zero;
         HookEngine Engine;
-        ResizeTargetDelegate ResizeTarget_orig;
+        public ResizeTargetDelegate ResizeTarget_orig;
 
         public SharpDX.Direct3D10.Device GlobalDevice = null;
 
-        public event ResizeTargetDelegate OnPreResizeTarget;
-
-        public event ResizeTargetDelegate OnPostResizeTarget;
+        public event ResizeTargetDelegate ResizeTarget_Event;
 
         public void Install()
         {
@@ -45,11 +43,13 @@ namespace RenderSpy.Graphics.d3d10
 
         public virtual int ResizeTarget_Detour(IntPtr swapChainPtr, ref ModeDescription newTargetParameters)
         {
-            OnPreResizeTarget?.Invoke(swapChainPtr, ref newTargetParameters);
-            int Result = ResizeTarget_orig(swapChainPtr, ref newTargetParameters);
-            OnPostResizeTarget?.Invoke(swapChainPtr, ref newTargetParameters);
+            if (ResizeTarget_Event != null)
+            {
+                int result = ResizeTarget_Event.Invoke(swapChainPtr, ref newTargetParameters);
+                return result;
+            }
+            else {  return ResizeTarget_orig(swapChainPtr, ref newTargetParameters); }
 
-            return Result;
         }
 
         public void Uninstall()

@@ -31,7 +31,7 @@ namespace RenderSpy.Inputs
         public void Install()
         {
            
-            OrigAddr = WinApi.GetWindowLongPtr(Handle, (int)WinApi.GWL.GWL_WNDPROC);
+            OrigAddr = RenderSpy.Globals.WinApi.GetWindowLongPtr(Handle, (int)RenderSpy.Globals.WinApi.GWL.GWL_WNDPROC);
 
             if (OrigAddr != IntPtr.Zero)
             {

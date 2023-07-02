@@ -33,7 +33,7 @@ namespace RenderSpy.Inputs
             if (_newCallback == null)
             {
                 _newCallback = WindowProc_Detour;
-                _oldCallback = WinApi.SetWindowLongPtr(Handle, (int)WinApi.GWL.GWL_WNDPROC, Marshal.GetFunctionPointerForDelegate(_newCallback));
+                _oldCallback = RenderSpy.Globals.WinApi.SetWindowLongPtr(Handle, (int)RenderSpy.Globals.WinApi.GWL.GWL_WNDPROC, Marshal.GetFunctionPointerForDelegate(_newCallback));
                 if (_oldCallback == IntPtr.Zero)
                 {
                     throw new Win32Exception(Marshal.GetLastWin32Error());
@@ -46,14 +46,14 @@ namespace RenderSpy.Inputs
         {
             WindowProc?.Invoke(hWnd, msg, wParam, lParam);
           
-            if (BlockInput == true) { return IntPtr.Zero; } else { return WinApi.CallWindowProc(_oldCallback, hWnd, (int)msg, wParam, lParam); }
+            if (BlockInput == true) { return IntPtr.Zero; } else { return RenderSpy.Globals.WinApi.CallWindowProc(_oldCallback, hWnd, (int)msg, wParam, lParam); }
         }
 
         public void Uninstall()
         {
             if (_newCallback != null)
             {
-                WinApi.SetWindowLongPtr(Handle, (int)WinApi.GWL.GWL_WNDPROC, _oldCallback);
+                RenderSpy.Globals.WinApi.SetWindowLongPtr(Handle, (int)RenderSpy.Globals.WinApi.GWL.GWL_WNDPROC, _oldCallback);
                 _newCallback = null;
             }
         }

@@ -19,7 +19,7 @@ namespace RenderSpy.Graphics.d3d11
 
         IntPtr OrigAddr = IntPtr.Zero;
         HookEngine Engine;
-        PresentDelegate Present_orig;
+        public PresentDelegate Present_orig;
 
         public event PresentDelegate PresentEvent;
 
@@ -43,9 +43,14 @@ namespace RenderSpy.Graphics.d3d11
 
         public virtual int Present_Detour(IntPtr swapChainPtr, int syncInterval, PresentFlags flags)
         {
-            PresentEvent?.Invoke(swapChainPtr, syncInterval, flags);
 
-            return Present_orig(swapChainPtr, syncInterval, flags);
+            if (PresentEvent != null)
+            {
+                int result = PresentEvent.Invoke(swapChainPtr, syncInterval, flags);
+                return result;
+            }
+            else { return Present_orig(swapChainPtr, syncInterval, flags); }
+
         }
 
         public void Uninstall()

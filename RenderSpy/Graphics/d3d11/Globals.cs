@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace RenderSpy.Graphics.d3d11
 {
-    internal class Globals
+    public class Globals
     {
         const int D3D11_DEVICE_METHOD_COUNT = 43;
 
@@ -33,7 +33,7 @@ namespace RenderSpy.Graphics.d3d11
                 {
                     using (swapChain)
                     {
-                        OrigAddrPtr = Helpers.GetVTblAddresses(swapChain.NativePointer, dxgi.Globals.DXGI_SWAPCHAIN_METHOD_COUNT)[(int)FunctionPointer];
+                        OrigAddrPtr =   RenderSpy.Globals.Helpers.GetVTblAddresses(swapChain.NativePointer, dxgi.Globals.DXGI_SWAPCHAIN_METHOD_COUNT)[(int)FunctionPointer];
                     }
                 }
                 else

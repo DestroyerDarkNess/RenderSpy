@@ -19,7 +19,7 @@ namespace RenderSpy.Graphics.d3d10
 
         IntPtr OrigAddr = IntPtr.Zero;
         HookEngine Engine;
-        PresentDelegate Present_orig;
+        public PresentDelegate Present_orig;
 
         public SharpDX.Direct3D10.Device GlobalDevice = null;
 
@@ -45,9 +45,14 @@ namespace RenderSpy.Graphics.d3d10
 
         public virtual int Present_Detour(IntPtr swapChainPtr, int syncInterval, PresentFlags flags)
         {
-            PresentEvent?.Invoke(swapChainPtr, syncInterval, flags);
 
-            return Present_orig(swapChainPtr, syncInterval, flags);
+            if (PresentEvent != null)
+            {
+                int result = PresentEvent.Invoke(swapChainPtr, syncInterval, flags);
+                return result;
+            }
+            else { return Present_orig(swapChainPtr, syncInterval, flags); }
+
         }
 
         public void Uninstall()

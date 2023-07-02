@@ -19,13 +19,12 @@ namespace RenderSpy.Graphics.d3d9
 
         IntPtr OrigAddr = IntPtr.Zero;
         HookEngine Engine;
-        ResetDelegate Reset_orig;
+        public ResetDelegate Reset_orig;
 
         public Device GlobalDevice = null;
 
-        public event ResetDelegate onPreReset;
+        public event ResetDelegate Reset_Event;
 
-        public event ResetDelegate onPostReset;
 
         public void Install()
         {
@@ -47,13 +46,14 @@ namespace RenderSpy.Graphics.d3d9
 
         public virtual int Reset_Detour(IntPtr device, ref PresentParameters presentParameters)
         {
-            onPreReset?.Invoke(device, ref presentParameters);
 
-            int ResetResult = Reset_orig(device, ref presentParameters);
+            if (Reset_Event != null)
+            {
+                int Result = Reset_Event.Invoke(device, ref presentParameters);
+                return Result;
+            }
+            else { return Reset_orig(device, ref presentParameters); }
 
-            onPostReset?.Invoke(device, ref presentParameters);
-
-            return ResetResult;
         }
 
         public void Uninstall()

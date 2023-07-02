@@ -19,7 +19,7 @@ namespace RenderSpy.Graphics.d3d9
 
         IntPtr OrigAddr = IntPtr.Zero;
         HookEngine Engine;
-        EndSceneDelegate EndScene_orig;
+        public  EndSceneDelegate EndScene_orig;
       
         public Device GlobalDevice = null;
 
@@ -27,7 +27,11 @@ namespace RenderSpy.Graphics.d3d9
 
         public void Install() {
 
-          OrigAddr = Globals.GetFunctionPtr(Direct3DDevice9FunctionOrdinals.EndScene, GlobalDevice);
+            // On Windows 7 64-bit w/ 32-bit app and d3d9 dll version 6.1.7600.16385, the address is equiv to:
+            // (IntPtr)(GetModuleHandle("d3d9").ToInt32() + 0x1ce09),
+            // A 64-bit app would use 0xff18
+            // Note: GetFunctionPtr will output these addresses to a log file
+            OrigAddr = Globals.GetFunctionPtr(Direct3DDevice9FunctionOrdinals.EndScene, GlobalDevice);
 
           if (OrigAddr != IntPtr.Zero)  {
 
@@ -42,9 +46,13 @@ namespace RenderSpy.Graphics.d3d9
 
         public virtual int EndScene_Detour(IntPtr device)
         {
-            EndSceneEvent?.Invoke(device);
+            if (EndSceneEvent != null)
+            {
+                int Result = EndSceneEvent.Invoke(device);
+                return Result;
+            }
+            else { return EndScene_orig(device); }
 
-            return EndScene_orig(device);
         }
 
         public void Uninstall()

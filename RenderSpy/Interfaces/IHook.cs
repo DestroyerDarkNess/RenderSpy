@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RenderSpy.Interfaces
 {
-    interface IHook
+    public interface IHook
     {
         void Install();
         void Uninstall();

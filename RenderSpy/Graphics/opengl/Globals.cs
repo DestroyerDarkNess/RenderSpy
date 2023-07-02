@@ -1,4 +1,4 @@
-﻿using OpenGL;
+﻿
 using SharpDX.Direct3D9;
 using System;
 using System.Collections.Generic;
@@ -16,7 +16,7 @@ namespace RenderSpy.Graphics.opengl
        public int minor = 0;
     }
 
-    internal class Globals
+    public class Globals
     {
      
         public delegate void glGetIntegervDelegate(uint pname, out int data);
@@ -55,11 +55,11 @@ namespace RenderSpy.Graphics.opengl
 
             GLVersion value = new GLVersion();
 
-            IntPtr hModule = WinApi.GetModuleHandle("opengl32.dll");
+            IntPtr hModule = RenderSpy.Globals.WinApi.GetModuleHandle("opengl32.dll");
 
-            if (hModule == IntPtr.Zero)
+            if (hModule != IntPtr.Zero)
             {
-                IntPtr glGetIntegervPtr = WinApi.GetProcAddress(hModule, "glGetIntegerv");
+                IntPtr glGetIntegervPtr = RenderSpy.Globals.WinApi.GetProcAddress(hModule, "glGetIntegerv");
 
                 glGetIntegervDelegate glGetIntegerv = Marshal.GetDelegateForFunctionPointer<glGetIntegervDelegate>(glGetIntegervPtr);
 
@@ -69,6 +69,25 @@ namespace RenderSpy.Graphics.opengl
             }
 
             return value;
+        }
+
+        public static IntPtr GL_GetProcAddress(string method) {
+
+            IntPtr hModule = RenderSpy.Globals.WinApi.GetModuleHandle("opengl32.dll");
+
+            if (hModule != IntPtr.Zero)
+            {
+                if (IsModernOpenGL() == false)
+                {
+                    return RenderSpy.Globals.WinApi.GetProcAddress(hModule, method); ;
+                }
+                else {
+                     return Globals.wglGetProcAddress(method); ;
+                }
+
+            }
+
+            return IntPtr.Zero;
         }
 
     }

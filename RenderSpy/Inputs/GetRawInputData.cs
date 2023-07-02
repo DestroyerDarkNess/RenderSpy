@@ -49,7 +49,7 @@ namespace RenderSpy.Inputs
 
         public System.Windows.Forms.Message GetLastMessage() {
             System.Windows.Forms.Message message;
-            WinApi.GetMessage(out message, Handle, 0, 0);
+            RenderSpy.Globals.WinApi.GetMessage(out message, Handle, 0, 0);
             return message;
         }
 

@@ -8,7 +8,6 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-using static RenderSpy.Graphics.d3d9.EndScene;
 
 namespace RenderSpy.Graphics.opengl
 {
@@ -19,7 +18,7 @@ namespace RenderSpy.Graphics.opengl
         public delegate bool WglSwapBuffersFunc(IntPtr hdc);
 
         HookEngine Engine;
-        WglSwapBuffersFunc wglSwapBuffers_orig;
+        public WglSwapBuffersFunc wglSwapBuffers_orig;
 
         public event WglSwapBuffersFunc wglSwapBuffersEvent;
 
@@ -46,9 +45,13 @@ namespace RenderSpy.Graphics.opengl
 
         public virtual bool wglSwapBuffers_Detour(IntPtr hdc)
         {
-            wglSwapBuffersEvent?.Invoke(hdc);
+            if (wglSwapBuffersEvent != null)
+            {
+                bool result = wglSwapBuffersEvent.Invoke(hdc);
+                return result;
+            }
+            else { return wglSwapBuffers_orig(hdc);  }
 
-            return wglSwapBuffers_orig(hdc);
         }
 
         public void Uninstall()

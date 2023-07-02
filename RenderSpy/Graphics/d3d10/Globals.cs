@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RenderSpy.Graphics.d3d10
 {
-    internal class Globals
+    public class Globals
     {
 
         public const int D3D10_DEVICE_METHOD_COUNT = 98;
@@ -27,7 +27,7 @@ namespace RenderSpy.Graphics.d3d10
                         using (SharpDX.DXGI.SwapChain SwapChainEx = new SharpDX.DXGI.SwapChain(factory, GlobalDevice, dxgi.Globals.CreateSwapChainDescription(renderForm.Handle)))
                         {
                         IntPtr vTablePtr = SwapChainEx.NativePointer;
-                        OrigAddrPtr = Helpers.GetVTblAddresses(SwapChainEx.NativePointer, dxgi.Globals.DXGI_SWAPCHAIN_METHOD_COUNT)[(int)FunctionPointer];
+                        OrigAddrPtr = RenderSpy.Globals.Helpers.GetVTblAddresses(SwapChainEx.NativePointer, dxgi.Globals.DXGI_SWAPCHAIN_METHOD_COUNT)[(int)FunctionPointer];
                         }
                     }
                 

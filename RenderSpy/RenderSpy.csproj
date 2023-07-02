@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -49,6 +50,9 @@
     <Reference Include="SharpDX.Desktop, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpDX.Desktop.4.2.0\lib\net45\SharpDX.Desktop.dll</HintPath>
     </Reference>
+    <Reference Include="SharpDX.Direct2D1, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpDX.Direct2D1.4.2.0\lib\net45\SharpDX.Direct2D1.dll</HintPath>
+    </Reference>
     <Reference Include="SharpDX.Direct3D10, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpDX.Direct3D10.4.2.0\lib\net45\SharpDX.Direct3D10.dll</HintPath>
     </Reference>
@@ -64,6 +68,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Windows.Forms" />
@@ -74,6 +79,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Graphics\d3d10\Globals.cs" />
     <Compile Include="Graphics\d3d10\Indexes.cs" />
     <Compile Include="Graphics\d3d10\Present.cs" />
@@ -82,25 +88,56 @@
     <Compile Include="Graphics\d3d11\Indexes.cs" />
     <Compile Include="Graphics\d3d11\Present.cs" />
     <Compile Include="Graphics\d3d11\ResizeTarget.cs" />
+    <Compile Include="Globals\SetupHook.cs" />
     <Compile Include="Graphics\d3d9\Globals.cs" />
     <Compile Include="Graphics\d3d9\Indexes.cs" />
     <Compile Include="Graphics\d3d9\Present.cs" />
     <Compile Include="Graphics\d3d9\Reset.cs" />
+    <Compile Include="Graphics\Detector.cs" />
     <Compile Include="Graphics\dxgi\Globals.cs" />
     <Compile Include="Graphics\dxgi\Indexes.cs" />
+    <Compile Include="Rendering\OpenGL\Drawings.cs" />
     <Compile Include="Graphics\opengl\Globals.cs" />
+    <Compile Include="Graphics\opengl\opengl32.cs" />
+    <Compile Include="Graphics\opengl\SDK.cs" />
     <Compile Include="Graphics\opengl\wglSwapBuffers.cs" />
-    <Compile Include="Helpers.cs" />
+    <Compile Include="Globals\Helpers.cs" />
     <Compile Include="Graphics\d3d9\EndScene.cs" />
+    <Compile Include="Graphics\vulkan\Globals.cs" />
+    <Compile Include="Graphics\vulkan\vulkan1.cs" />
     <Compile Include="Inputs\DefWindowProc.cs" />
     <Compile Include="Inputs\GetRawInputData.cs" />
     <Compile Include="Inputs\GetWindowLongPtr.cs" />
     <Compile Include="Inputs\Globals.cs" />
     <Compile Include="Inputs\SetCursorPos.cs" />
     <Compile Include="Inputs\SetWindowLongPtr.cs" />
+    <Compile Include="Inputs\SetWindowSubclass.cs" />
     <Compile Include="Interfaces\IHook.cs" />
+    <Compile Include="Rendering\OpenGL\BitmapFont.cs" />
+    <Compile Include="Rendering\OpenGL\ColorData.cs" />
+    <Compile Include="Rendering\OpenGL\GraphicsException.cs" />
+    <Compile Include="Rendering\OpenGL\InterpolationMode.cs" />
+    <Compile Include="Rendering\OpenGL\OpenGLFont.cs" />
+    <Compile Include="Rendering\OpenGL\OpenGLHelper.cs" />
+    <Compile Include="Rendering\OpenGL\OpenGLTexture.cs" />
+    <Compile Include="Rendering\OpenGL\PixelFormatDescription.cs" />
+    <Compile Include="Rendering\OpenGL\PixelFormatDescriptor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WinApi.cs" />
+    <Compile Include="Globals\WinApi.cs" />
+    <Compile Include="Rendering\OpenGL\OpenGLColor.cs" />
+    <Compile Include="Rendering\OpenGL\OpenGLError.cs" />
+    <Compile Include="Rendering\OpenGL\OpenGLInterops.cs" />
+    <Compile Include="Rendering\OpenGL\Shaders\FragmentShader.cs" />
+    <Compile Include="Rendering\OpenGL\Shaders\Shader.cs" />
+    <Compile Include="Rendering\OpenGL\Shaders\ShaderProgram.cs" />
+    <Compile Include="Rendering\OpenGL\Shaders\SimpleFragmentShader.cs" />
+    <Compile Include="Rendering\OpenGL\Shaders\SimpleVertexShader.cs" />
+    <Compile Include="Rendering\OpenGL\Shaders\VertexShader.cs" />
+    <Compile Include="Rendering\OpenGL\TextAccessoire.cs" />
+    <Compile Include="Rendering\OpenGL\TextEntity.cs" />
+    <Compile Include="Rendering\OpenGL\TextEntityManager.cs" />
+    <Compile Include="Rendering\OpenGL\VertexArray.cs" />
+    <Compile Include="Rendering\OpenGL\VertexBuffer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

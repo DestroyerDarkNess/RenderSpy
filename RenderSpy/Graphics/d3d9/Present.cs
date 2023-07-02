@@ -19,7 +19,7 @@ namespace RenderSpy.Graphics.d3d9
 
         IntPtr OrigAddr = IntPtr.Zero;
         HookEngine Engine;
-        PresentDelegate Present_orig;
+        public PresentDelegate Present_orig;
 
         public Device GlobalDevice = null;
 
@@ -45,9 +45,14 @@ namespace RenderSpy.Graphics.d3d9
 
         public virtual int Present_Detour(IntPtr device, IntPtr sourceRect, IntPtr destRect, IntPtr hDestWindowOverride, IntPtr dirtyRegion)
         {
-            PresentEvent?.Invoke(device, sourceRect, destRect, hDestWindowOverride, dirtyRegion);
 
-            return Present_orig(device, sourceRect, destRect, hDestWindowOverride, dirtyRegion);
+            if (PresentEvent != null)
+            {
+                int Result = PresentEvent.Invoke(device, sourceRect, destRect, hDestWindowOverride, dirtyRegion);
+                return Result;
+            }
+            else { return Present_orig(device, sourceRect, destRect, hDestWindowOverride, dirtyRegion); }
+
         }
 
         public void Uninstall()
