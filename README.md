@@ -72,7 +72,7 @@ RenderSpy when incorporating these libraries has a weight of approximately 5mb, 
                     break;
                 case RenderSpy.Graphics.GraphicsType.d3d10:
 
-                    Graphics.d3d11.Present PresentHook_10 = new Graphics.d3d11.Present();
+                    Graphics.d3d10.Present PresentHook_10 = new Graphics.d3d10.Present();
                     PresentHook_10.Install();
                     CurrentHook = PresentHook_10;
 
