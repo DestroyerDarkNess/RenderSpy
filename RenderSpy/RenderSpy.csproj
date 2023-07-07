@@ -24,7 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -33,10 +33,14 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MinHook.NET, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MinHook.NET.1.1.1\lib\net45\MinHook.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="NBidi">
+      <HintPath>..\libs\NBidi.dll</HintPath>
     </Reference>
     <Reference Include="OpenGL.Net, Version=0.8.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\OpenGL.Net.0.8.4\lib\net35\OpenGL.Net.dll</HintPath>
@@ -53,17 +57,26 @@
     <Reference Include="SharpDX.Direct2D1, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpDX.Direct2D1.4.2.0\lib\net45\SharpDX.Direct2D1.dll</HintPath>
     </Reference>
-    <Reference Include="SharpDX.Direct3D10, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
-      <HintPath>..\packages\SharpDX.Direct3D10.4.2.0\lib\net45\SharpDX.Direct3D10.dll</HintPath>
+    <Reference Include="SharpDX.Direct3D10, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpDX.Direct3D10.4.1.0\lib\net45\SharpDX.Direct3D10.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX.Direct3D11, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpDX.Direct3D11.4.2.0\lib\net45\SharpDX.Direct3D11.dll</HintPath>
     </Reference>
+    <Reference Include="SharpDX.Direct3D11.Effects, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpDX.Direct3D11.Effects.4.1.0\lib\net45\SharpDX.Direct3D11.Effects.dll</HintPath>
+    </Reference>
     <Reference Include="SharpDX.Direct3D9, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpDX.Direct3D9.4.2.0\lib\net45\SharpDX.Direct3D9.dll</HintPath>
     </Reference>
+    <Reference Include="SharpDX.DirectManipulation, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpDX.DirectManipulation.4.2.0\lib\net45\SharpDX.DirectManipulation.dll</HintPath>
+    </Reference>
     <Reference Include="SharpDX.DXGI, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpDX.DXGI.4.2.0\lib\net45\SharpDX.DXGI.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.Mathematics, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpDX.Mathematics.4.2.0\lib\net45\SharpDX.Mathematics.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -96,10 +109,17 @@
     <Compile Include="Graphics\Detector.cs" />
     <Compile Include="Graphics\dxgi\Globals.cs" />
     <Compile Include="Graphics\dxgi\Indexes.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Rendering\d3d11\DXFont.cs" />
+    <Compile Include="Rendering\d3d11\DXSprite.cs" />
     <Compile Include="Rendering\OpenGL\Drawings.cs" />
     <Compile Include="Graphics\opengl\Globals.cs" />
     <Compile Include="Graphics\opengl\opengl32.cs" />
-    <Compile Include="Graphics\opengl\SDK.cs" />
+    <Compile Include="Graphics\opengl\OldSDK.cs" />
     <Compile Include="Graphics\opengl\wglSwapBuffers.cs" />
     <Compile Include="Globals\Helpers.cs" />
     <Compile Include="Graphics\d3d9\EndScene.cs" />
@@ -138,6 +158,20 @@
     <Compile Include="Rendering\OpenGL\TextEntityManager.cs" />
     <Compile Include="Rendering\OpenGL\VertexArray.cs" />
     <Compile Include="Rendering\OpenGL\VertexBuffer.cs" />
+    <Compile Include="SpriteTextRenderer\CharRenderCall.cs" />
+    <Compile Include="SpriteTextRenderer\Helpers.cs" />
+    <Compile Include="SpriteTextRenderer\SharpDX\Extensions.cs" />
+    <Compile Include="SpriteTextRenderer\SharpDX\SpriteRenderer.cs" />
+    <Compile Include="SpriteTextRenderer\SharpDX\TextBlockRenderer.cs" />
+    <Compile Include="SpriteTextRenderer\SpriteRenderer.cs" />
+    <Compile Include="SpriteTextRenderer\STRColor.cs" />
+    <Compile Include="SpriteTextRenderer\StringMetrics.cs" />
+    <Compile Include="SpriteTextRenderer\STRInputElement.cs" />
+    <Compile Include="SpriteTextRenderer\STRLayout.cs" />
+    <Compile Include="SpriteTextRenderer\Structs.cs" />
+    <Compile Include="SpriteTextRenderer\STRVector.cs" />
+    <Compile Include="SpriteTextRenderer\STRViewport.cs" />
+    <Compile Include="SpriteTextRenderer\TextBlockRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -145,6 +179,24 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Graphics\d3d12\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SpriteShader.fx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sharpdx_direct3d11_1_effects_arm.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sharpdx_direct3d11_1_effects_x64.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sharpdx_direct3d11_1_effects_x86.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

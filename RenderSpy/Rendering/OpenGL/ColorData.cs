@@ -23,8 +23,8 @@ using System.Numerics;
 
 namespace RenderSpy.Rendering.OpenGL
 {
-   
-    internal class ColorData
+
+    public class ColorData
     {
         /// <summary>
         /// Initializes a new ColorData class.

@@ -25,7 +25,7 @@ using System.Windows.Forms;
 
 namespace RenderSpy.Rendering.OpenGL
 {
-    internal class BitmapFont
+    public class BitmapFont
     {
         /// <summary>
         /// Draws the text into a bitmap.

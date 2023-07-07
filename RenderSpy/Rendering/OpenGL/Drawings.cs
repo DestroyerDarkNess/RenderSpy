@@ -77,7 +77,7 @@ namespace RenderSpy.Rendering.OpenGL
         [Obsolete]
         public static void glText(string text, Font font, Color FontColor, PointF position)
         {
-            System.Drawing.Bitmap TextBitmap = Drawings.RenderTextToBitmap(text, font, FontColor, Color.Transparent);
+            System.Drawing.Bitmap TextBitmap = BitmapFont.DrawTextToBitmap(text, font, FontColor);
             Drawings.glBitmap(TextBitmap, position);
         }
 
@@ -146,33 +146,6 @@ namespace RenderSpy.Rendering.OpenGL
             OldSDK.Disable(Target.Blend);
         }
 
-            public static Bitmap RenderTextToBitmap(string text, Font font, Color textColor, Color backColor)
-        {
-            // Crear un objeto de gráficos a partir de un bitmap en blanco
-            Bitmap bitmap = new Bitmap(1, 1);
-            System.Drawing.Graphics graphics = System.Drawing.Graphics.FromImage(bitmap);
-
-            // Calcular el tamaño necesario para el bitmap basado en el texto y la fuente
-            SizeF textSize = graphics.MeasureString(text, font);
-            int width = (int)Math.Ceiling(textSize.Width);
-            int height = (int)Math.Ceiling(textSize.Height);
-
-            // Crear un nuevo bitmap con el tamaño calculado
-            bitmap = new Bitmap(width, height);
-            graphics = System.Drawing.Graphics.FromImage(bitmap);
-
-            // Configurar los colores y el fondo del bitmap
-            graphics.Clear(backColor);
-            Brush textBrush = new SolidBrush(textColor);
-
-            // Dibujar el texto en el bitmap
-            graphics.DrawString(text, font, textBrush, PointF.Empty);
-
-            // Liberar los recursos de gráficos
-            graphics.Dispose();
-
-            return bitmap;
-        }
 
     }
 
