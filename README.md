@@ -13,6 +13,13 @@
 
 [![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#table-of-contents)
 
+# Samples
+
+| Sample | Description       |
+|----------|---------------|
+| [Universal.FPS.Counter](https://github.com/DestroyerDarkNess/Universal.FPS.Counter) | A Universal FPS Counter for games |
+
+
 # Features
  *Note: The objectives of the list that have: [❌] - It means I have no idea how to solve it.*
 
