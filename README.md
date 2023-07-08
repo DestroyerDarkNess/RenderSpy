@@ -8,7 +8,7 @@
   <br>
   Universal graphical and input hook for a D3D9-D3D12, OpenGL and Vulkan based games
   <br>
-  You can find the Examples Repository <a href="https://github.com/DestroyerDarkNess/RenderSpy.Samples">[HERE]</a>
+  💠 Please leave a Star to the repository ✅ if you liked it. ✨
 </p>
 
 [![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#table-of-contents)
