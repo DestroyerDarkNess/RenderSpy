@@ -48,6 +48,7 @@ RenderSpy when incorporating these libraries has a weight of approximately 5mb, 
 
 ### Inputs
 
+- [x] DirectInputHook ✨
 - [x] GetRawInputData 
 - [x] DefWindowProc
 - [x] GetWindowLongPtr
