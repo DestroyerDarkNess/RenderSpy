@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RenderSpy.Graphics.d3d11
+namespace RenderSpy.Graphics.d3d12
 {
     public class Present : IHook
     {
@@ -21,15 +21,12 @@ namespace RenderSpy.Graphics.d3d11
         HookEngine Engine;
         public PresentDelegate Present_orig;
 
-        public SharpDX.Direct3D11.Device GlobalDevice = null;
-        public SharpDX.DXGI.SwapChain GlobalSwapChain = null;
-
         public event PresentDelegate PresentEvent;
 
         public void Install()
         {
 
-            OrigAddr = Globals.GetFunctionPtr(dxgi.DXGISwapChainVTbl.Present, GlobalDevice , GlobalSwapChain);
+            OrigAddr = Globals.GetFunctionPtr(dxgi.DXGISwapChainVTbl.Present);
 
             if (OrigAddr != IntPtr.Zero)
             {

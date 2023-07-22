@@ -66,8 +66,14 @@
     <Reference Include="SharpDX.Direct3D11.Effects, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpDX.Direct3D11.Effects.4.1.0\lib\net45\SharpDX.Direct3D11.Effects.dll</HintPath>
     </Reference>
+    <Reference Include="SharpDX.Direct3D12, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpDX.Direct3D12.4.2.0\lib\net45\SharpDX.Direct3D12.dll</HintPath>
+    </Reference>
     <Reference Include="SharpDX.Direct3D9, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpDX.Direct3D9.4.2.0\lib\net45\SharpDX.Direct3D9.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.DirectInput, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpDX.DirectInput.4.2.0\lib\net45\SharpDX.DirectInput.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX.DirectManipulation, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpDX.DirectManipulation.4.2.0\lib\net45\SharpDX.DirectManipulation.dll</HintPath>
@@ -102,6 +108,9 @@
     <Compile Include="Graphics\d3d11\Present.cs" />
     <Compile Include="Graphics\d3d11\ResizeTarget.cs" />
     <Compile Include="Globals\SetupHook.cs" />
+    <Compile Include="Graphics\d3d12\Globals.cs" />
+    <Compile Include="Graphics\d3d12\Present.cs" />
+    <Compile Include="Graphics\d3d12\ResizeTarget.cs" />
     <Compile Include="Graphics\d3d9\Globals.cs" />
     <Compile Include="Graphics\d3d9\Indexes.cs" />
     <Compile Include="Graphics\d3d9\Present.cs" />
@@ -109,6 +118,7 @@
     <Compile Include="Graphics\Detector.cs" />
     <Compile Include="Graphics\dxgi\Globals.cs" />
     <Compile Include="Graphics\dxgi\Indexes.cs" />
+    <Compile Include="Inputs\DirectInputHook.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -172,14 +182,13 @@
     <Compile Include="SpriteTextRenderer\STRVector.cs" />
     <Compile Include="SpriteTextRenderer\STRViewport.cs" />
     <Compile Include="SpriteTextRenderer\TextBlockRenderer.cs" />
+    <Compile Include="Tools\DLLFromMemory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Graphics\d3d12\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

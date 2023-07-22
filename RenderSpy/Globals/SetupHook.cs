@@ -6,36 +6,49 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace RenderSpy.Globals
 {
-    public class SetupHook
+    public class SetupHook : IDisposable
     {
-       public HookEngine HookEngine;
+        private HookEngine HookEngine;
 
-        public SetupHook() {
-
+        public HookEngine Hook 
+        {
+            get { return HookEngine; }  
         }
 
-        public Delegate Install(IntPtr OrigAddr, Delegate FunctionTarget) {
+        public Delegate DelegateOrig_Func;
 
+
+        public SetupHook(IntPtr OrigAddr, Delegate FunctionTarget ) {
             if (OrigAddr != IntPtr.Zero)
             {
 
                 HookEngine = new HookEngine();
-                Delegate DelegateFunc = HookEngine.CreateHook(OrigAddr, FunctionTarget);
+                DelegateOrig_Func  = HookEngine.CreateHook(OrigAddr, FunctionTarget);
                 HookEngine.EnableHooks();
-                return DelegateFunc;
 
             }
             else { throw new Exception("Address not found: " + OrigAddr.ToString()); }
-
         }
 
-        public void Uninstall()
+        #region IDisposable implementation with finalizer
+        private bool isDisposed = false;
+        public void Dispose() { Dispose(true); GC.SuppressFinalize(this); }
+        protected virtual void Dispose(bool disposing)
         {
-            HookEngine?.Dispose();
+            if (!isDisposed)
+            {
+                if (disposing)
+                {
+                    if (HookEngine != null) HookEngine.Dispose();
+                }
+            }
+            isDisposed = true;
         }
+        #endregion
 
     }
 }
