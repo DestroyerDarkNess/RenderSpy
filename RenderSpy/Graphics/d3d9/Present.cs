@@ -17,7 +17,7 @@ namespace RenderSpy.Graphics.d3d9
         public delegate int PresentDelegate(IntPtr device, IntPtr sourceRect, IntPtr destRect, IntPtr hDestWindowOverride, IntPtr dirtyRegion);
 
 
-        IntPtr OrigAddr = IntPtr.Zero;
+        public IntPtr OrigAddr = IntPtr.Zero;
         HookEngine Engine;
         public PresentDelegate Present_orig;
 
@@ -28,7 +28,7 @@ namespace RenderSpy.Graphics.d3d9
         public void Install()
         {
 
-            OrigAddr = Globals.GetFunctionPtr(Direct3DDevice9FunctionOrdinals.Present, GlobalDevice);
+            if (OrigAddr == IntPtr.Zero) { OrigAddr = Globals.GetFunctionPtr(Direct3DDevice9FunctionOrdinals.Present, GlobalDevice); }
 
             if (OrigAddr != IntPtr.Zero)
             {

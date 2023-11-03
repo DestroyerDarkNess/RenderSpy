@@ -45,8 +45,8 @@ namespace RenderSpy.Graphics.vulkan
                         MethodAdressPtr = Globals.vkGetInstanceProcAddr(vulkanModuleHandle, MethodName);
                     }
                     catch { MethodAdressPtr = WinApi.GetProcAddress(vulkanModuleHandle, MethodName); }
-                  
-                    Result.Add(MethodName, MethodAdressPtr);
+
+                    if (MethodAdressPtr != IntPtr.Zero) { Result.Add(MethodName, MethodAdressPtr); }
 
                 }
             }
@@ -57,15 +57,15 @@ namespace RenderSpy.Graphics.vulkan
         public static IntPtr GetMethod(string methodname)
         {
             IntPtr vulkanModuleHandle = WinApi.GetModuleHandle("vulkan-1.dll");
-
+            IntPtr result = IntPtr.Zero;
             if (vulkanModuleHandle != IntPtr.Zero)
             {
                 try {
-                IntPtr result = Globals.vkGetInstanceProcAddr(vulkanModuleHandle, methodname);
-                return result;
-                } catch { return WinApi.GetProcAddress(vulkanModuleHandle, methodname); }
+                    result = Globals.vkGetInstanceProcAddr(vulkanModuleHandle, methodname);
+                    return result;
+                } catch { result = WinApi.GetProcAddress(vulkanModuleHandle, methodname); }
             }
-            return IntPtr.Zero;
+            return result;
         }
 
 

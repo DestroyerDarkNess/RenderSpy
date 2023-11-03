@@ -322,5 +322,7 @@ namespace RenderSpy.Globals
             GWL_ID = -12
         }
 
+        [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Ansi)]  public static extern IntPtr LoadLibrary([MarshalAs(UnmanagedType.LPStr)] string lpFileName);
+
     }
 }
