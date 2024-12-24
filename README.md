@@ -13,6 +13,39 @@
 
 [![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#table-of-contents)
 
+## Installation / How to use.
+
+1. **Create a .NET Framework >=4.6 Project**: Open Visual Studio and create a new Console application targeting .NET Framework >=4.6.
+
+2. **Install RenderSpy via NuGet**:
+
+   - **Package Manager Console**:
+   
+     Open the Package Manager Console and run:
+
+     ```powershell
+     Install-Package RenderSpy -Version 1.7.8
+     ```
+
+   - **.NET CLI**:
+
+     If you prefer using the .NET CLI, run:
+
+     ```bash
+     dotnet add package RenderSpy --version 1.7.8
+     ```
+
+   - **Visual Studio Package Manager GUI**:
+
+     - Right-click on your project in the Solution Explorer.
+     - Select **Manage NuGet Packages**.
+     - Search for **RenderSpy**.
+     - Install version **1.7.8**.
+
+3. **Write your hook code using RenderSpy, see Samples**
+
+4. **Build your dll and inject it into the game process. you can use my projects :**  [Unmanaged.Net](https://github.com/DestroyerDarkNess/Unmanaged.Net) Or [NETBuilderInjection](https://github.com/DestroyerDarkNess/NETBuilderInjection)
+
 # Samples
 
 | Sample | Description       |
