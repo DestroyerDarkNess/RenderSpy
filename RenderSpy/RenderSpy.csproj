@@ -47,6 +47,9 @@
     <Reference Include="OpenGL.Net, Version=0.8.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\OpenGL.Net.0.8.4\lib\net35\OpenGL.Net.dll</HintPath>
     </Reference>
+    <Reference Include="RemoteControl">
+      <HintPath>..\libs\RemoteControl.dll</HintPath>
+    </Reference>
     <Reference Include="SharpDX, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpDX.4.2.0\lib\net45\SharpDX.dll</HintPath>
     </Reference>
@@ -121,6 +124,7 @@
     <Compile Include="Graphics\dxgi\Globals.cs" />
     <Compile Include="Graphics\dxgi\Indexes.cs" />
     <Compile Include="Inputs\DirectInputHook.cs" />
+    <Compile Include="Inputs\GlobalWndProcHook.cs" />
     <Compile Include="Overlay\D3D9Window.cs">
       <SubType>Form</SubType>
     </Compile>

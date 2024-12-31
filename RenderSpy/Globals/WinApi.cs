@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RenderSpy.Globals
 {
+
     public enum WM : int
     {
         NULL = 0x0000,
@@ -274,14 +271,15 @@ namespace RenderSpy.Globals
     }
     public class WinApi
     {
+        [DllImport("user32.dll", CharSet = CharSet.Auto)] public static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
 
-        [DllImport("kernel32.dll",  EntryPoint = "AllocConsole", SetLastError = true,CallingConvention = CallingConvention.StdCall)]   public static extern int AllocConsole();
+        [DllImport("kernel32.dll", EntryPoint = "AllocConsole", SetLastError = true, CallingConvention = CallingConvention.StdCall)] public static extern int AllocConsole();
 
         [DllImport("user32.dll")] public static extern int GetMessage(out System.Windows.Forms.Message lpMsg, IntPtr hWnd, uint wMsgFilterMin, uint wMsgFilterMax);
         [DllImport("user32.dll")] public static extern short GetAsyncKeyState(System.Windows.Forms.Keys vKey);
         [DllImport("kernel32.dll")] public static extern IntPtr GetProcAddress(IntPtr hModule, string lpProcName);
 
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto)]  public static extern IntPtr GetModuleHandle(string lpModuleName);
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto)] public static extern IntPtr GetModuleHandle(string lpModuleName);
 
 
         [DllImport("user32.dll", EntryPoint = "GetWindowLong")] public static extern IntPtr GetWindowLongPtr32(IntPtr hWnd, int nIndex);
@@ -296,9 +294,9 @@ namespace RenderSpy.Globals
                 return GetWindowLongPtr32(hWnd, nIndex);
         }
 
-        [DllImport("user32.dll", EntryPoint = "SetWindowLong")]   public static extern IntPtr SetWindowLong32(IntPtr hWnd, int nIndex, IntPtr newValue);
+        [DllImport("user32.dll", EntryPoint = "SetWindowLong")] public static extern IntPtr SetWindowLong32(IntPtr hWnd, int nIndex, IntPtr newValue);
 
-        [DllImport("user32.dll", EntryPoint = "SetWindowLongPtr")]   public static extern IntPtr SetWindowLongPtr64(IntPtr hWnd, int nIndex, IntPtr newValue);
+        [DllImport("user32.dll", EntryPoint = "SetWindowLongPtr")] public static extern IntPtr SetWindowLongPtr64(IntPtr hWnd, int nIndex, IntPtr newValue);
         public static IntPtr SetWindowLongPtr(IntPtr hWnd, int nIndex, IntPtr newValue)
         {
             if (IntPtr.Size != 4)
@@ -322,7 +320,8 @@ namespace RenderSpy.Globals
             GWL_ID = -12
         }
 
-        [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Ansi)]  public static extern IntPtr LoadLibrary([MarshalAs(UnmanagedType.LPStr)] string lpFileName);
+        [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Ansi)] public static extern IntPtr LoadLibrary([MarshalAs(UnmanagedType.LPStr)] string lpFileName);
 
+        [DllImport("kernel32.dll", SetLastError = true)][return: MarshalAs(UnmanagedType.Bool)] public static extern bool FreeLibrary(IntPtr hModule);
     }
 }
